@@ -6,25 +6,35 @@
     <title>How to generate eBay user tokens</title>
 </head>
 <body>
-    To generate user tokens:
-
-    Get an authorization code - this is used only to generate a token. It is good for five minutes. The url for the sign in page is on eBay develop site:
-    href='https://developer.ebay.com/my/auth?env=sandbox&index=0&auth_type=oauth'>
-
+    <header>
+    <h1>How to Generate eBay User Tokens</h1>
+    </header>
+    <article>
+        <section>
+    <p>Get an authorization code - this is used only to generate a token. It is good for five minutes. The url for the sign in page is on eBay develop site:
+    https://developer.ebay.com/my/auth?env=sandbox&index=0&auth_type=oauth
+</p>
+<p>
 Click on Get a token from eBay via your application. Find the link for your branded sign in page 0Auth.
-
+</p>
+<p>
 Your authorization code will be embedded in the url of the page you are redirected to after you confirm.
-
+</p>
+</section>
+<section>
+<p>
     Create a new user token and refresh token. The user token is good for two hours. The refresh token is good for 18 month. You need the authorization code from above for this call.
-
+</p><p>
     Use the refresh token to generate a new user token as needed.
-
+</p><p>
 The user only needs to log into eBay to generate the authorization code. This code is used for step 2. Only the refresh token is needed for step 3.
-
-I will manually obtain the authorization code and refresh token. I will store the refresh token in the database to use for generating new user tokens. The code is very similar to generating new application tokens.
-
+</p>
+<p>
 See: https://developer.ebay.com/api-docs/static/oauth-authorization-code-grant.html
-
+</p>
+</section>
+<section>
+    <p>
 To perform step 2 above use curl:
 curl -X POST 'https://api.ebay.com/identity/v1/oauth2/token '
 -H 'Content-Type: application/x-www-form-urlencoded'
@@ -32,13 +42,15 @@ curl -X POST 'https://api.ebay.com/identity/v1/oauth2/token '
 -d 'grant_type=authorization_code&
 code=YOURAUTHORIZATIONCODE&
 redirect_uri=RJ_Eichhorn-RJEichho-RickAp-cdcxflhw'
-
+</p>
+<p>
 To generate a token from a refresh token:
 curl -X POST 'https://api.ebay.com/identity/v1/oauth2/token '
 -H 'Content-Type: application/x-www-form-urlencoded'
 -H 'Authorization: Basic AUTHORIZATIONCODE'
 -d 'grant_type=refresh_token&refresh_token=v^1.1#...=='
-
+</p>
+<p>
 NOTE: the tokens returned by eBay are not url encoded. To use them in a curl call, you need to use:
 --data-urlencode instead of -d:
 curl -X POST 'https://api.ebay.com/identity/v1/oauth2/token '
@@ -46,5 +58,7 @@ curl -X POST 'https://api.ebay.com/identity/v1/oauth2/token '
 -H 'Authorization: Basic ....GE4ZDpQUkQtYzhlOGEwMGMwMTQ1LTc1Y2YtNDJmNC04NzI5LTFlZWQK'
 --data-urlencode 'grant_type=refresh_token'
 --data-urlencode 'refresh_token=v^1.1#i^1#r^1#f^0...^UlNFXjI2MA=='
+</p></section>
+</article>
 </body>
 </html>
