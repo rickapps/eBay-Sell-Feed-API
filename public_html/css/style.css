@@ -1,0 +1,47 @@
+/* Show it is fixed to the top */
+body {
+    min-height: 75rem;
+    padding-top: 4.5rem;
+  }
+  
+  .row li {
+    width: 33.3%;
+    float: left;
+  }
+  
+  img {
+    border: 0 none;
+    display: inline-block;
+    height: auto;
+    max-width: 100%;
+    vertical-align: middle;
+  } 
+   
+  .dropdown-menu {
+    position: static;
+    display: block;
+    width: auto;
+    margin: 4rem auto;
+  }
+  
+  .dropdown-menu-macos {
+    display: grid;
+    gap: .25rem;
+    padding: .5rem;
+    border-radius: .5rem;
+  }
+  .dropdown-menu-macos .dropdown-item {
+    border-radius: .25rem;
+  }
+  
+  .btn-hover-light {
+    text-align: left;
+    background-color: var(--bs-white);
+    border-radius: .25rem;
+  }
+  .btn-hover-light:hover,
+  .btn-hover-light:focus {
+    color: var(--bs-blue);
+    background-color: var(--bs-light);
+  }
+  

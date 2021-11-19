@@ -5,7 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 define('WINDOWS', false);
-define('SITE_URL', 'http://localhost/');
+define('SITE_URL', 'http://feedapi/');
 define('CURL_PGM', '/usr/bin/curl');
 define('SELLER_ID', 'MySellID');
 define('AUTHORIZATION', 'base64 authorization token goes here');

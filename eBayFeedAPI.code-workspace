@@ -3,5 +3,10 @@
 		{
 			"path": "."
 		}
-	]
+	],
+	"settings": {
+		"open-php-html-js-in-browser.customHost": "feedapi",
+		"open-php-html-js-in-browser.selectedBrowser": "Firefox",
+		"open-php-html-js-in-browser.urlToOpen": "custom"
+	}
 }
