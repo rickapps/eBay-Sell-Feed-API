@@ -8,5 +8,35 @@
 		"open-php-html-js-in-browser.customHost": "feedapi",
 		"open-php-html-js-in-browser.selectedBrowser": "Firefox",
 		"open-php-html-js-in-browser.urlToOpen": "custom"
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Listen for Xdebug",
+				"type": "php",
+				"hostname": "127.0.0.1",
+				"request": "launch",
+				"port": 9000,
+				"runtimeExecutable": "php"
+			},
+			{
+				"name": "Launch currently open script",
+				"type": "php",
+				"request": "launch",
+				"program": "${file}",
+				"stopOnEntry": true,
+				"cwd": "${fileDirname}",
+				"port": 9000,
+				"runtimeExecutable": "php",
+				"runtimeArgs": [
+					"-dxdebug.start_with_request=yes"
+				],
+				"env": {
+					"XDEBUG_MODE": "debug,develop",
+					"XDEBUG_CONFIG": "client_port=${port}"
+				}
+			}
+		]
 	}
 }

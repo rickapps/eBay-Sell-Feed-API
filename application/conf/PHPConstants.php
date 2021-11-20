@@ -10,7 +10,8 @@ define('CURL_PGM', '/usr/bin/curl');
 define('SELLER_ID', 'MySellID');
 define('AUTHORIZATION', 'base64 authorization token goes here');
 
-// Where to locate our export files
+// Where to find our export files
 define('OUT_FOLDER', PROJECT_ROOT . '/public_html/export/');
-define('OUT_FILE', 'eBayExchange.csv');
+define('FILE_TYPES', 'csv');
+
 ?>
