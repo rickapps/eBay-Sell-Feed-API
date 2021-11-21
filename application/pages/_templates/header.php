@@ -8,7 +8,7 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="<?php echo SITE_URL; ?>css/style.css">
 
-    <title><?php isset($PageTitle) ? print($PageTitle) : print("eBay Lister")?></title>
+    <title><?php isset($PageTitle) ? print($PageTitle) : print("RickApps")?></title>
 </head>
 <body>
 <main role="main" class="container">

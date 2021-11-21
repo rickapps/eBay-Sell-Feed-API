@@ -27,15 +27,15 @@ function getFileList($root, $file_types=false) {
 }
 
 // Upload a file to our webserver. If it meets standards, copy it to our upload folder
-function uploadFile()
+function uploadFile($key)
 {
   $errors = []; // Store errors here
   $fileTypes=explode(',',FILE_TYPES); 
 
-  $fileName = $_FILES['files']['name'];
-  $fileSize = $_FILES['files']['size'];
-  $fileTmpName  = $_FILES['files']['tmp_name'];
-  $fileType = $_FILES['files']['type'];
+  $fileName = $_FILES[$key]['name'];
+  $fileSize = $_FILES[$key]['size'];
+  $fileTmpName  = $_FILES[$key]['tmp_name'];
+  $fileType = $_FILES[$key]['type'];
   // Apparently, this is safer than just relying on $fileType.
   $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
 
@@ -54,8 +54,12 @@ function uploadFile()
   }
 
   if (empty($errors)) {
-    if (!move_uploaded_file($fileTmpName, $uploadPath)) {
-      $errors[] = "File could not be copied";
+    if (move_uploaded_file($fileTmpName, $uploadPath)) {
+      $errors[] = "File added";
+    }
+    else
+    {
+      $errors[] = "File could not be uploaded";
     }
   }
   return $errors;
