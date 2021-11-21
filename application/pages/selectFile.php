@@ -35,4 +35,5 @@
     <!-- If you don't give the submit button a name, $_POST does not get populated. -->
     <input type="submit" style="display: none;" id="upload" name="upload" />
     <input type="button" value="Add File..." class="btn btn-primary" onclick="document.getElementById('picker').click();" />
+    <?php if (isset($PageMsg)) { print("<em>" . $PageMsg . "</em>"); } ?>
 </form>  

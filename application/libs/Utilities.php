@@ -29,39 +29,38 @@ function getFileList($root, $file_types=false) {
 // Upload a file to our webserver. If it meets standards, copy it to our upload folder
 function uploadFile($key)
 {
-  $errors = []; // Store errors here
+  $msg = ""; 
   $fileTypes=explode(',',FILE_TYPES); 
 
   $fileName = $_FILES[$key]['name'];
   $fileSize = $_FILES[$key]['size'];
   $fileTmpName  = $_FILES[$key]['tmp_name'];
   $fileType = $_FILES[$key]['type'];
-  // Apparently, this is safer than just relying on $fileType.
   $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
 
   $uploadPath = OUT_FOLDER . basename($fileName); 
 
-  if (!in_array($fileExtension,$fileTypes)) {
-    $errors[] = "This file extension is not allowed. Please upload " . FILE_TYPES . " files";
+  if (!in_array($fileExtension,$fileTypes)) 
+  {
+    $msg = "File not accepted. File extension must be " . FILE_TYPES;
+  }
+  elseif ($fileSize == 0) 
+  {
+    $msg = "File not accepted. File is empty";
+  }
+  elseif ($fileSize > 4000000) 
+  {
+    $msg = "File exceeds maximum size (4MB)";
+  }
+  elseif (move_uploaded_file($fileTmpName, $uploadPath)) 
+  {
+      $msg = "File added.";
+  }
+  else
+  {
+      $msg = "Your file could not be uploaded";
   }
 
-  if ($fileSize == 0) {
-    $errors[] = "File is empty";
-  }
-
-  if ($fileSize > 4000000) {
-    $errors[] = "File exceeds maximum size (4MB)";
-  }
-
-  if (empty($errors)) {
-    if (move_uploaded_file($fileTmpName, $uploadPath)) {
-      $errors[] = "File added";
-    }
-    else
-    {
-      $errors[] = "File could not be uploaded";
-    }
-  }
-  return $errors;
+  return $msg;
 }
 ?>

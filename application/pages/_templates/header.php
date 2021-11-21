@@ -11,5 +11,5 @@
     <title><?php isset($PageTitle) ? print($PageTitle) : print("RickApps")?></title>
 </head>
 <body>
-<main role="main" class="container">
+<div class="container">
 
