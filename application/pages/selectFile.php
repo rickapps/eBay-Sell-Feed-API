@@ -30,7 +30,7 @@
 </div>
 <!-- Allow the user to upload additional files. These files will be added -->
 <!-- to the drop down list after the form posts.                          -->
-<form action="http://feedapi/" enctype="multipart/form-data" method="post">
+<form action=<?php print('"' . SITE_URL . '"'); ?> enctype="multipart/form-data" method="post">
     <input type="file" style="display: none;" id="picker" name="picker" onchange="document.getElementById('upload').click();"/>
     <!-- If you don't give the submit button a name, $_POST does not get populated. -->
     <input type="submit" style="display: none;" id="upload" name="upload" />
