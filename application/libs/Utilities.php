@@ -25,4 +25,39 @@ function getFileList($root, $file_types=false) {
   } // End If
   return $fileList;
 }
+
+// Upload a file to our webserver. If it meets standards, copy it to our upload folder
+function uploadFile()
+{
+  $errors = []; // Store errors here
+  $fileTypes=explode(',',FILE_TYPES); 
+
+  $fileName = $_FILES['files']['name'];
+  $fileSize = $_FILES['files']['size'];
+  $fileTmpName  = $_FILES['files']['tmp_name'];
+  $fileType = $_FILES['files']['type'];
+  // Apparently, this is safer than just relying on $fileType.
+  $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+
+  $uploadPath = OUT_FOLDER . basename($fileName); 
+
+  if (!in_array($fileExtension,$fileTypes)) {
+    $errors[] = "This file extension is not allowed. Please upload " . FILE_TYPES . " files";
+  }
+
+  if ($fileSize == 0) {
+    $errors[] = "File is empty";
+  }
+
+  if ($fileSize > 4000000) {
+    $errors[] = "File exceeds maximum size (4MB)";
+  }
+
+  if (empty($errors)) {
+    if (!move_uploaded_file($fileTmpName, $uploadPath)) {
+      $errors[] = "File could not be copied";
+    }
+  }
+  return $errors;
+}
 ?>

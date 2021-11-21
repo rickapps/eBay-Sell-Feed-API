@@ -14,7 +14,7 @@
     ?>
   </select>
 </div>
-<form action="/Photo/UploadFiles" enctype="multipart/form-data" method="post">
+<form action=<?php echo SITE_URL ?> enctype="multipart/form-data" method="post">
     <!-- Note that the onchange event could be blocked. Some browsers do not allow form to be submitted using javascript. -->
     <input type="file" multiple style="display: none;" id="files" name="files" onchange="this.form.submit();" />
     <input type="button" value="Add File..." class="btn btn-primary" onclick="document.getElementById('files').click();" />

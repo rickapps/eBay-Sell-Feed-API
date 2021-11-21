@@ -15,11 +15,20 @@ define('PROJECT_ROOT', '/home/rickapps/Exhibits/eBay-Sell-Feed-API');
 // to modify this file before you run this app.
 require PROJECT_ROOT . '/application/conf/PHPConstants.php';
 
-// load our repository
+// load our code
 require PROJECT_ROOT . '/application/libs/Utilities.php';
 require PROJECT_ROOT . '/application/libs/eBayRepository.php';
 
-// Construct our view
-include PROJECT_ROOT . '/application/pages/_templates/header.php';
-include PROJECT_ROOT . '/application/pages/mainPage.php';
-include PROJECT_ROOT . '/application/pages/_templates/footer.php';
+if (isset($_POST['files'])) 
+{
+    // We are uploading a file to our export folder.
+    // This file can later be choosen to upload to eBay.
+    $errors = uploadFile();
+}
+else
+{
+    // Construct our view
+    include PROJECT_ROOT . '/application/pages/_templates/header.php';
+    include PROJECT_ROOT . '/application/pages/mainPage.php';
+    include PROJECT_ROOT . '/application/pages/_templates/footer.php';
+}
