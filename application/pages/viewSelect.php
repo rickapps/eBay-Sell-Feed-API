@@ -7,8 +7,12 @@
   // That's why we have invisible submit button, invisible 'picker' field. 
   // This probably could be improved with more testing, but it works for now 
 
-  // Get a list of all export files currently in our export folder
-  $fileList = getFileList(OUT_FOLDER, FILE_TYPES); 
+   // Check if any selection message was passed in the url
+  isset($_GET['resp']) ? $response = $_GET['resp'] : $response = Responses::None;
+  $msg = GetMsg($response);
+
+   // Get a list of all export files currently in our export folder
+   $fileList = getFileList(OUT_FOLDER, FILE_TYPES); 
 ?>
 
 <h3>Select file to upload</h3>
@@ -30,10 +34,10 @@
 </div>
 <!-- Allow the user to upload additional files. These files will be added -->
 <!-- to the drop down list after the form posts.                          -->
-<form action=<?php print('"' . SITE_URL . '"'); ?> enctype="multipart/form-data" method="post">
+<form action=<?php print('"' . SITE_URL . 'addDatafile.php"'); ?> enctype="multipart/form-data" method="post">
     <input type="file" style="display: none;" id="picker" name="picker" onchange="document.getElementById('upload').click();"/>
     <!-- If you don't give the submit button a name, $_POST does not get populated. -->
     <input type="submit" style="display: none;" id="upload" name="upload" />
     <input type="button" value="Add File..." class="btn btn-primary" onclick="document.getElementById('picker').click();" />
-    <?php if (isset($PageMsg)) { print("<em>" . $PageMsg . "</em>"); } ?>
+    <?php print("<em>" . $msg . "</em>"); ?>
 </form>  

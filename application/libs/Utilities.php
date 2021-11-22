@@ -1,22 +1,36 @@
 <?php 
-//===================================================//
-// FUNCTION: getFileList                             //
-//                                                   //
-// Parameters:                                       //
-//  - $root: The directory to process                //
-//  - $file_types: the extensions of file types to   //
-//                 to return if files selected       //
-//===================================================//
+/**********************************************
+ * @author RickApps
+ * @link https://github.com/rickapps/eBay-Sell-Feed-API
+ * @license http://opensource.org/licenses/MIT MIT License
+***********************************************/
+
+// After post requests, we always redirect back to our main page
+function redirect($url) {
+  ob_start();
+  header('Location: '.$url);
+  ob_end_flush();
+  die();
+}
+
+// List all files in the root folder that have the extensions
+// specified in file_types. 
 function getFileList($root, $file_types=false) {
   $fileList = array();
-  if ($file_types) { $file_types=explode(',',$file_types); }
-  if ($handle = opendir($root)) {
-    while (false !== ($file = readdir($handle))) {
-      if ($file != "." && $file != "..") {
+  if ($file_types) { 
+    $file_types=explode(',',$file_types); 
+  }
+  if ($handle = opendir($root)) 
+  {
+    while (false !== ($file = readdir($handle))) 
+    {
+      if ($file != "." && $file != "..") 
+      {
         if (is_dir($root . "/" . $file))
           continue;
         $ext = pathinfo($file, PATHINFO_EXTENSION);
-        if ( !$file_types || in_array($ext, $file_types) ) {
+        if ( !$file_types || in_array($ext, $file_types) ) 
+        {
           $fileList[] = $file;
         }
       }
@@ -26,45 +40,77 @@ function getFileList($root, $file_types=false) {
   return $fileList;
 }
 
-// Upload a file to our webserver. If it meets standards, 
-// copy the datafile to our upload folder
-function addNewDatafile($key)
-{
-  $msg = ""; 
-  $fileTypes=explode(',',FILE_TYPES); 
+// Half baked attempt at error handling
+abstract class Responses {
+  const None = -1;
+  const Success = 0;
+  const BadExtension = 1;
+  const EmptyFile = 2;
+  const TooLarge = 3;
+  const OtherError = 4;
+}
 
-  $fileName = $_FILES[$key]['name'];
-  $fileSize = $_FILES[$key]['size'];
-  $fileTmpName  = $_FILES[$key]['tmp_name'];
-  $fileType = $_FILES[$key]['type'];
-  $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
-
-  $uploadPath = OUT_FOLDER . basename($fileName); 
-
-  if (!in_array($fileExtension,$fileTypes)) 
+// More half baked attempt at error handling
+function GetMsg($err) {
+  $msg = "";
+  if ($err == Responses::Success)
+  {
+    $msg = "File added.";
+  }
+  elseif ($err == Responses::BadExtension)
   {
     $msg = "File not accepted. File extension must be " . FILE_TYPES;
   }
-  elseif ($fileSize == 0) 
+  elseif ($err == Responses::EmptyFile)
   {
     $msg = "File not accepted. File is empty";
   }
-  elseif ($fileSize > 4000000) 
+  elseif ($err == Responses::TooLarge)
   {
     $msg = "File exceeds maximum size (4MB)";
   }
-  elseif (move_uploaded_file($fileTmpName, $uploadPath)) 
+  elseif ($err == Responses::OtherError)
   {
-      $msg = "File added.";
+    $msg = "Your file could not be uploaded";
   }
-  else
-  {
-      $msg = "Your file could not be uploaded";
-  }
-
   return $msg;
 }
 
+// Upload a file to our webserver. If it meets standards, 
+// copy the datafile to our upload folder
+function addNewDatafile($name, $size, $tmpName)
+{
+  $fileTypes=explode(',',FILE_TYPES); 
+
+  $fileExtension = pathinfo($name, PATHINFO_EXTENSION);
+
+  $uploadPath = OUT_FOLDER . basename($name); 
+
+  if (!in_array($fileExtension,$fileTypes)) 
+  {
+    $result = Responses::BadExtension;
+  }
+  elseif ($size == 0) 
+  {
+    $result = Responses::EmptyFile;
+  }
+  elseif ($size > 4000000) 
+  {
+    $result = Responses::TooLarge;
+  }
+  elseif (move_uploaded_file($tmpName, $uploadPath)) 
+  {
+      $result = Responses::Success;
+  }
+  else
+  {
+      $result = Responses::OtherError;
+  }
+
+  return $result;
+}
+
+// Upload a datafile to eBay
 function sendToEbay($dataFile)
 {
     // Get a user token. It is generated when the one stored in SESSION has expired.
@@ -86,5 +132,4 @@ function sendToEbay($dataFile)
     $msg = sprintf($fmt, $task, $status, $loadCnt, $failCnt);
     print($msg);
 }
-
 ?>

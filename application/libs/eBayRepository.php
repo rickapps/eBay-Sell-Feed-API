@@ -1,4 +1,10 @@
 <?php
+/**********************************************
+ * @author RickApps
+ * @link https://github.com/rickapps/eBay-Sell-Feed-API
+ * @license http://opensource.org/licenses/MIT MIT License
+***********************************************/
+
 class eBayrepository 
 {
     private $token;
