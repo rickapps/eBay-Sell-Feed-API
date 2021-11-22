@@ -3,7 +3,7 @@
   <p>This application demonstrates how to use eBay user tokens and a few of the calls 
     in the Sell Feed API. The purpose of the demo is to show how to upload datafiles to eBay 
     and monitor the result. For the demo, you will create your own csv file to upload. You can 
-    easily find other code samples that show how your application could create the csv files.
+    easily find other code samples that illustrate how your application could create csv files.
   </p>
 </header>
 <main>
@@ -17,7 +17,7 @@
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#uploadToEbay">
       <div class="accordion-body">
-        <?php include PROJECT_ROOT . '/application/pages/selectFile.php'; ?>
+        <?php include PROJECT_ROOT . '/application/pages/viewSelect.php'; ?>
       </div>
     </div>
   </div>
@@ -30,7 +30,7 @@
     </h2>
     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#uploadToEbay">
       <div class="accordion-body">
-      <?php include PROJECT_ROOT . '/application/pages/uploadFile.php'; ?>
+      <?php include PROJECT_ROOT . '/application/pages/viewUpload.php'; ?>
       </div>
     </div>
   </div>

@@ -9,6 +9,7 @@ define('SITE_URL', 'http://feedapi/');
 define('CURL_PGM', '/usr/bin/curl');
 define('SELLER_ID', 'MySellID');
 define('AUTHORIZATION', 'base64 authorization token goes here');
+define('REFRESHTOKEN', 'token for a specific eBay user goes here');
 
 // Where to find our export files
 define('OUT_FOLDER', PROJECT_ROOT . '/public_html/export/');
