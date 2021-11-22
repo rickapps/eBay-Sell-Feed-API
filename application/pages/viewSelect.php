@@ -35,9 +35,9 @@
 <!-- Allow the user to upload additional files. These files will be added -->
 <!-- to the drop down list after the form posts.                          -->
 <form action=<?php print('"' . SITE_URL . 'addDatafile.php"'); ?> enctype="multipart/form-data" method="post">
-    <input type="file" style="display: none;" id="picker" name="picker" onchange="document.getElementById('upload').click();"/>
+    <input type="file" style="display: none;" id="picker" name="picker" onchange="document.getElementById('add').click();"/>
     <!-- If you don't give the submit button a name, $_POST does not get populated. -->
-    <input type="submit" style="display: none;" id="upload" name="upload" />
+    <input type="submit" style="display: none;" id="add" name="add" />
     <input type="button" value="Add File..." class="btn btn-primary" onclick="document.getElementById('picker').click();" />
     <?php print("<em>" . $msg . "</em>"); ?>
 </form>  

@@ -9,7 +9,8 @@ define('PROJECT_ROOT', realpath(dirname(__FILE__) . "/../"));
 require PROJECT_ROOT . '/application/conf/PHPConstants.php';
 require PROJECT_ROOT . '/application/libs/Utilities.php';
 
-if (isset($_POST['upload'])) 
+$targetURL = SITE_URL . "index.php";
+if (isset($_POST['add'])) 
 {
     // We are uploading a file to our export folder.
     // This file can later be choosen to upload to eBay.
@@ -19,5 +20,6 @@ if (isset($_POST['upload']))
     $fileType = $_FILES['picker']['type'];
 
     $PageMsg = addNewDatafile($fileName, $fileSize, $fileTmpName);
+    $targetURL = $targetURL . "?resp=" . $PageMsg;
 }
-redirect(SITE_URL . "index.php?resp=" . $PageMsg);
+redirect($targetURL);

@@ -18,9 +18,32 @@ class eBayrepository
         $this->refreshToken = $refresh;
     }
 
+    // Upload a datafile to eBay
+    public function sendToEbay($dataFile)
+    {
+        // Get a user token. It is generated when the one stored in SESSION has expired.
+        $token = $this->getUserToken();
+        // Create a task for SellerHub
+        $location = $this->getTaskID($token);
+        // Use our task to upload our export file
+        $out = $this->uploadFile($token, $location, $dataFile);
+        // Get the status of our upload and notify the user
+        $out = $this->getUploadStatus($token, $location);
+        // Parse our status results
+        $val = json_decode($out);
+        $task = $val->taskId;
+        $status = $val->status;
+        $loadCnt = $val->uploadSummary->successCount;
+        $failCnt = $val->uploadSummary->failureCount;
+
+        $fmt = "Task: %s<br>Status: %s<br>Listed: %s<br>Errors: %s";
+        $msg = sprintf($fmt, $task, $status, $loadCnt, $failCnt);
+        print($msg);
+    }
+
     // Return true if status code < 400.
     // Only use on curl commands that imploy -i option.
-    public function headerOK($headers)
+    private function headerOK($headers)
     {
         $status = 0;
         if (is_array($headers))
@@ -37,7 +60,7 @@ class eBayrepository
     // Obtain a specified value from an http header array.
     // The status code is stored under key 'Status'. Curl only
     // returns header information if you use the -i or -v options.
-    public function parseHeaders($headers, $key)
+    private function parseHeaders($headers, $key)
     {
         // Define the $response_headers array for later use
         $response_headers = [];

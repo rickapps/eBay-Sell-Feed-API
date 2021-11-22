@@ -109,27 +109,4 @@ function addNewDatafile($name, $size, $tmpName)
 
   return $result;
 }
-
-// Upload a datafile to eBay
-function sendToEbay($dataFile)
-{
-    // Get a user token. It is generated when the one stored in SESSION has expired.
-    $token = $ebayRep()->getUserToken();
-    // Create a task for SellerHub
-    $location = $eBayRep()->getTaskID($token);
-    // Use our task to upload our export file
-    $out = $eBayRep()->uploadFile($token, $location, $dataFile);
-    // Get the status of our upload and notify the user
-    $out = $eBayRep()->getUploadStatus($token, $location);
-    // Parse our status results
-    $val = json_decode($out);
-    $task = $val->taskId;
-    $status = $val->status;
-    $loadCnt = $val->uploadSummary->successCount;
-    $failCnt = $val->uploadSummary->failureCount;
-
-    $fmt = "Task: %s<br>Status: %s<br>Listed: %s<br>Errors: %s";
-    $msg = sprintf($fmt, $task, $status, $loadCnt, $failCnt);
-    print($msg);
-}
 ?>
