@@ -112,12 +112,21 @@ class eBayrepository
             if ($status == 0) 
             {
                 $val = json_decode($out[0]);
-                $token = $val->access_token;
-                $expires = $val->expires_in;
-                $_SESSION['UToken'] = $token;
-                // Expire our token two minutes before it actually does
-                // Currently a token lasts two hours.
-                $_SESSION['UExpire'] = time() + $expires - 120;
+                if (property_exists($val, "access_token"))
+                {
+                    $token = $val->access_token;
+                    $expires = $val->expires_in;
+                    $_SESSION['UToken'] = $token;
+                    // Expire our token two minutes before it actually does
+                    // Currently a token lasts two hours.
+                    $_SESSION['UExpire'] = time() + $expires - 120;
+                }
+                else
+                {
+                    $error = $val->error;
+                    $errDesc = $val->error_description;
+                    throw new Exception($error . ": " . $errDesc);
+                }
             }
             else
             {
