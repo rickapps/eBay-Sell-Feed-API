@@ -18,7 +18,7 @@
 <h3>Select file to upload</h3>
 
 <div class="d-flex gap-5 justify-content-center" id="dropdownMacos">
-  <select class="form-select" aria-label="Select file to upload">
+  <select class="form-select" aria-label="Select file to upload" id="selectFile">
     <?php
       // Populate the drop down with our list of files.
       foreach ($fileList as $file) 
