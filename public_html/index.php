@@ -6,7 +6,7 @@
  * @link https://rickapps.com
  * @license http://opensource.org/licenses/MIT MIT License
  */
-
+session_start();
 // Get a reference path so we can locate our include files
 define('PROJECT_ROOT', realpath(dirname(__FILE__) . "/../"));
 

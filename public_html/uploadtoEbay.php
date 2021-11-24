@@ -4,6 +4,7 @@
  * @link https://github.com/rickapps/eBay-Sell-Feed-API
  * @license http://opensource.org/licenses/MIT MIT License
 ***********************************************/
+session_start();
 // Get a reference path so we can locate our include files
 define('PROJECT_ROOT', realpath(dirname(__FILE__) . "/../"));
 require PROJECT_ROOT . '/application/conf/PHPConstants.php';
@@ -16,6 +17,7 @@ if (isset($_POST['upload']))
     $eBayRep = new eBayrepository(AUTHORIZATION, REFRESHTOKEN);
     $file = OUT_FOLDER . "uploadListings.csv";
     $taskID = $eBayRep->sendToEbay($file);
-    $targetURL = $targetURL . "?Task=" . $taskID;
+    $targetURL = $targetURL . "?task=" . urlencode($taskID);
 }
+// We need to return the task id (location actually) so we can track it.
 redirect($targetURL);
