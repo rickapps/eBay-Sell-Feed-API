@@ -27,18 +27,18 @@ class eBayrepository
         $location = $this->getTaskID($token);
         // Use our task to upload our export file
         $out = $this->uploadFile($token, $location, $dataFile);
+
+        return $location;
+    }
+
+    // Get the results of our upload to eBay
+    public function getResults($location)
+    {
+        // Get a user token. It is generated when the one stored in SESSION has expired.
+        $token = $this->getUserToken();
         // Get the status of our upload and notify the user
         $out = $this->getUploadStatus($token, $location);
-        // Parse our status results
-        $val = json_decode($out);
-        $task = $val->taskId;
-        $status = $val->status;
-        $loadCnt = $val->uploadSummary->successCount;
-        $failCnt = $val->uploadSummary->failureCount;
-
-        $fmt = "Task: %s<br>Status: %s<br>Listed: %s<br>Errors: %s";
-        $msg = sprintf($fmt, $task, $status, $loadCnt, $failCnt);
-        print($msg);
+        return $out;
     }
 
     // Return true if status code < 400.
@@ -88,7 +88,7 @@ class eBayrepository
 
     // User token is obtained using developer's AppID:CertID and a refresh token.
     // A token expires in about two hours. Refresh tokens are stored in database and last about a year.
-    public function getUserToken()
+    private function getUserToken()
     {
         $token = 'unknown';
         // Do we already have a valid token?
@@ -99,11 +99,11 @@ class eBayrepository
         else {
             // Use cURL program to obtain a token
             unset($out);
-            $cmdOptions = ' -sS -X POST https://api.ebay.com/identity/v1/oauth2/token '
+            $cmdOptions = ' -sS -X POST https://api.sandbox.ebay.com/identity/v1/oauth2/token '
                 . '-H "Content-Type: application/x-www-form-urlencoded" '
                 . '-H "Authorization: Basic ' . $this->authorization . '" '
                 . '-d "grant_type=refresh_token" '
-                . '-d "refresh_token=' . urlencode($this->refreshToken) . '" '
+                . '-d "refresh_token=' . $this->refreshToken . '" '
                 . '-d "scope=' . urlencode('https://api.ebay.com/oauth/api_scope/sell.inventory') . '"';
             // Do not use escapeshellarg() here. It really messes up your command line.
             exec(CURL_PGM . $cmdOptions . " 2>&1", $out, $status);
@@ -138,10 +138,10 @@ class eBayrepository
     }
 
     // Get the task id needed to upload files 
-    public function getTaskID($token)
+    private function getTaskID($token)
     {
         unset($out);
-        $options = " -sS -i -X POST https://api.ebay.com/sell/feed/v1/task";
+        $options = " -sS -i -X POST https://api.sandbox.ebay.com/sell/feed/v1/task";
         $headers = ' -H "X-EBAY-C-MARKETPLACE-ID:EBAY_US" '
                   . '-H "Content-Type: application/json" '
                   . '-H "Accept: application/json" '
@@ -167,7 +167,7 @@ class eBayrepository
         return $location;
     } 
 
-    public function uploadFile($token, $task, $fileName)
+    private function uploadFile($token, $task, $fileName)
     {
         if (WINDOWS)
         {
@@ -203,7 +203,7 @@ class eBayrepository
         return $out;
     }
 
-    public function getUploadStatus($token, $location)
+    private function getUploadStatus($token, $location)
     {
         unset($out);
         $options = " -sS -i -X GET ";
