@@ -5,43 +5,18 @@
 
   // Check if we got our task
   isset($_GET['task']) ? $location = $_GET['task'] : $location = "";
-  if ($location)
-  {
-    $eBayRep = new eBayrepository(AUTHORIZATION, REFRESHTOKEN);
-    // Get the status of our upload and notify the user
-    $out = $eBayRep->getResults($location);
-    // Parse our status results
-    $val = json_decode($out);
-    $task = $val->taskId;
-    $status = $val->status;
-    $loadCnt = $val->uploadSummary->successCount;
-    $failCnt = $val->uploadSummary->failureCount;
-
-    $fmt = "Task: %s<br>Status: %s<br>Listed: %s<br>Errors: %s";
-    $msg = sprintf($fmt, $task, $status, $loadCnt, $failCnt);
-    print($msg);
-  }
-
 ?>
-<h2>Results Page</h2>
+<h3>Display Results</h3>
 <div>
     <!-- Form -->
     <form method='post' action=''>
-        <div class="form-group row py-2">
-            <div class='col-sm-9'>
-            <input type="text" class="form-control" value=<?php echo '"' . $location . '"' ?> id="taskid" name="taskid" readonly>
-            <input type="text" class="form-control" value=<?php echo '"' . $status . '"' ?> id="status" name="status" readonly>
-            </div>
-            <div class='col-sm-3'>
-                <button type="button" class="btn btn-primary" id="btnUpdate">Update</button>
-            </div>
-        </div>
+        <input type="text" style="display: none;" value=<?php echo '"' . $location . '"' ?> id="taskid" name="taskid">
+        <button type="button" class="btn btn-primary" id="btnUpdate">Refresh</button>
     </form>
-    <!-- Upload results --->
+    <!-- Show results --->
     <div class="form-group row py-2">
         <div class="col-sm-12">
-            <select name="results" id="results" class="selectpicker form-control" size="8">  
-            </select>  
+            <textarea rows=4 name="results" id="results" class="form-control" placeholder="No results" readonly></textarea>  
         </div>
     </div>
 </div><!-- End Body -->
