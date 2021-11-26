@@ -1,3 +1,8 @@
+/**********************************************
+ * @author RickApps
+ * @link https://github.com/rickapps/eBay-Sell-Feed-API
+ * @license http://opensource.org/licenses/MIT MIT License
+***********************************************/
 // We use jquery to make it easier to post requests. Code without jquery is commented out.
 $(document).ready(function() {
     // When the second accordian item expands, copy the name

@@ -2,8 +2,8 @@
   <h2>eBay Sell Feed API Demo</h2>
   <p>This application demonstrates how to use eBay user tokens and a few of the calls 
     in the Sell Feed API. The purpose of the demo is to show how to upload datafiles to eBay 
-    and monitor the result. For the demo, you will create your own csv file to upload. You can 
-    easily find other code samples that illustrate how your application could create csv files.
+    and monitor the result. For the demo, you will create your own csv file to upload. The demo
+    only illustrates how to process csv files, not how to create them.
   </p>
 </header>
 <main>
