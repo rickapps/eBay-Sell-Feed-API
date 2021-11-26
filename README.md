@@ -22,7 +22,7 @@ To run the website:
 2. Ensure folder /public_html is browsable on your webserver.
 3. Set permissions on /public_html/export so your webserver can write to it.
 4. Set permissions in php.ini so the application can upload files. 
-5. Edit the file PHPConstants. You only need to generate an authorization code once. Instructions can be found here. You will need to generate a refresh token about every 18 months. Instructions can be found here. Your values are specific to the eBay sandbox and the eBay production environments.
+5. Edit the file PHPConstants. You only need to generate an authorization code once. Instructions can be found [here](https://developer.ebay.com/api-docs/static/oauth-base64-credentials.html). You will need to generate a refresh token about every 18 months. Instructions can be found [here](/docs/index.html). Your values are specific to the eBay sandbox and the eBay production environments.
 
 ## Notes
 Many upload files that work fine on the production environment will be marked 'Failed' in the sandbox environment. Don't waste time trying to debug file structure in the sandbox. 
