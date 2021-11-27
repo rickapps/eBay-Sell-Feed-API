@@ -35,7 +35,7 @@ To run the website:
 2. Ensure the project folder */public_html* is browsable on your webserver.
 3. Set permissions on */public_html/export* so your webserver can write to it.
 4. Set permissions in php.ini so the application can upload files. 
-5. Edit the file *PHPConstants*. You only need to generate an authorization code once. Instructions can be found [here](https://developer.ebay.com/api-docs/static/oauth-base64-credentials.html). You will need to generate a refresh token about every 18 months. Instructions can be found [here](https://rickapps.github.io/eBay-Sell-Feed-API/). Your values are specific to the eBay sandbox and the eBay production environments.
+5. Edit the file *PHPConstants*. You only need to generate an authorization code once. Instructions can be found [here](https://developer.ebay.com/api-docs/static/oauth-base64-credentials.html). You will need to generate a refresh token about every 18 months. Instructions can be found [here](https://gist.github.com/rickapps/1be821cd515f8cc946f292b715f893db). Your values are specific to the eBay sandbox and the eBay production environments.
 
 ![Screenshot 1](/docs/images/feedAPI_1.png)
 ![Screenshot 2](/docs/images/feedAPI_2.png)
