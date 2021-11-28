@@ -13,7 +13,7 @@ To use this code in your PHP project, you only need two files:
 `?>`  
 
 These four eBay API calls are utilized: [createTask](https://developer.ebay.com/api-docs/sell/feed/resources/task/methods/createTask), [uploadFile](https://developer.ebay.com/api-docs/sell/feed/resources/task/methods/uploadFile), 
-[getTask](https://developer.ebay.com/api-docs/sell/feed/resources/task/methods/getTask), and [0Auth2/token](https://developer.ebay.com/api-docs/static/oauth-refresh-token-request.html)
+[getTask](https://developer.ebay.com/api-docs/sell/feed/resources/task/methods/getTask), and [OAuth2/token](https://developer.ebay.com/api-docs/static/oauth-refresh-token-request.html)
 
 ## Notes
 Many csv files that work fine on eBay's production environment will be marked 'Failed' in the sandbox environment. Don't waste time trying to debug export file structure in the sandbox. Make use of the action *VerifyAdd* to avoid accruing listing fees in the production environment.
