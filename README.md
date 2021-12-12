@@ -3,7 +3,7 @@ Demonstrates how to upload a file to eBay and get the results using eBay's new *
 
 To use this code in your PHP project, you only need two files:
 
-*application/eBayRepository.php*  
+*application/libs/eBayRepository.php*  
 *application/conf/PHPConstants.php*  
 
 `<?php`   
