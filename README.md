@@ -12,11 +12,11 @@ To use this code in your PHP project, you only need two files:
     `$json = $eBayRep->getResults($taskID);`      
 `?>`  
 
-These four eBay API calls are utilized: [createTask](https://developer.ebay.com/api-docs/sell/feed/resources/task/methods/createTask), [uploadFile](https://developer.ebay.com/api-docs/sell/feed/resources/task/methods/uploadFile), 
+It can take some time for eBay to process your upload file, so you might want to call the last line above, getResults($taskID), repeatedly. These four eBay API calls are utilized by the repository class: [createTask](https://developer.ebay.com/api-docs/sell/feed/resources/task/methods/createTask), [uploadFile](https://developer.ebay.com/api-docs/sell/feed/resources/task/methods/uploadFile), 
 [getTask](https://developer.ebay.com/api-docs/sell/feed/resources/task/methods/getTask), and [OAuth2/token](https://developer.ebay.com/api-docs/static/oauth-refresh-token-request.html)
 
 ## Notes
-Many csv files that work fine on eBay's production environment will be marked 'Failed' in the sandbox environment. Don't waste time trying to debug export file structure in the sandbox. Make use of the action *VerifyAdd* to avoid accruing listing fees in the production environment.
+Many csv files that work fine on eBay's production environment will be marked 'Failed' in the sandbox environment. Don't waste time trying to debug import file structure in the sandbox. Make use of the action *VerifyAdd* to avoid accruing listing fees in the production environment.
 
 eBay does not list csv files marked 'Failed' on the *Upload History* page in *My eBay*.
 
@@ -31,7 +31,7 @@ Use [Postman](https://postman.com) to help with debugging API calls. It will mak
 ## Installation
 
 To run the website:
-1. Install [curl](https://curl.se) on your machine if not already installed.
+1. Install [curl](https://curl.se) on your webserver if not already installed.
 2. Ensure the project folder */public_html* is browsable on your webserver.
 3. Set permissions on */public_html/export* so your webserver can write to it.
 4. Set permissions in php.ini so the application can upload files. 
